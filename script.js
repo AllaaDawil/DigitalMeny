@@ -1,6 +1,7 @@
 //maybe we need to declare let courses; here outside the try instead of declaring it as a const inside, to make it work with all the filtering later
 let language = "sv"; // Default language
-		
+let currentSortOrder = "default"; //Default sortering
+
 async function fetchCourses() {
 	//asynchronous function allows the rest of the code to continue executing while waiting for the asynchronous operation to complete.
 	try {
@@ -11,22 +12,36 @@ async function fetchCourses() {
 		}
 		const accessCourses = await response.json(); //json() is parsing courses.json file and converts it to a javaScript object.
 		const courses = accessCourses.courses; //In the converted JSON file use courses array and assign it to a variable called courses here.
-
-		console.log(courses); //Test to see if it works
 		
 		const menuContainer = document.getElementById('cards-menu');
 		menuContainer.innerHTML = ""; // Resetting menu
 
-		courses.forEach(course => {
+		// Ternary condition/ använder nested if vilkor
+		if(currentSortOrder != "default") {
+			if(currentSortOrder == "hightolow") //sortera priset i (courses array) i fallande ordning 
+			courses.sort((b, a) => (typeof(a.price) == 'undefined' ? a.priceWhole.sv : a.price.sv) -  (typeof(b.price) == 'undefined' ? b.priceWhole.sv : b.price.sv));
+			else if(currentSortOrder == "lowtohigh") //sortera priset i (courses array) i stigande ordning 
+			courses.sort((a, b) => (typeof(a.price) == 'undefined' ? a.priceWhole.sv : a.price.sv) -  (typeof(b.price) == 'undefined' ? b.priceWhole.sv : b.price.sv));
+		}
+
+		//skapa ny card element for varje maträtt
+		courses.forEach(course => { 
 			const card = document.createElement('div');
 			card.classList.add('col-md-4', 'mb-3');
-			if(language == 'sv') 
-			card.innerHTML = "<b>"+course.name.sv+"</b> ‧ "+course.price.sv+course.currency.sv+" ‧ "+course.about.sv; 
+
+			//Konttrolera om maträtt har ett difinerat pris
+			card.innerHTML = "<b>"+course.name[language]+"</b> ‧ ";
+			if(typeof(course.price) != 'undefined')
+				card.innerHTML += "<b>"+course.price[language]+course.currency[language]+"</b>";
 			else 
-			card.innerHTML = "<b>"+course.name.en+"</b> ‧ "+course.price.en+course.currency.en+" ‧ "+course.about.en;
+			{
+				//Om inget pris är definierat visa halva och hela storlekar med priser
+				card.innerHTML += course.sizeHalf[language]+" "+course.priceHalf[language]+course.currency[language]+" / ";
+				card.innerHTML += course.sizeWhole[language]+" "+course.priceWhole[language]+course.currency[language];
+			}
+			card.innerHTML += " ‧ "+course.about[language]; //lägg till maträtt description till varje card
 				
 		  	menuContainer.appendChild(card);
-
 		});
 
 	} catch (error) {
@@ -35,11 +50,14 @@ async function fetchCourses() {
 	}
 }
 
+// Hämtar courses
 fetchCourses();
 
+// välja ett språk
 let englishBtn = document.getElementById('englishBtn');
 let svenskaBtn = document.getElementById('svenskaBtn');
 
+//lägg till eventlistener
 englishBtn.addEventListener('click', function() {
 	language = "en";
 	fetchCourses();
@@ -50,5 +68,21 @@ svenskaBtn.addEventListener('click', function() {
 	fetchCourses();
 });
 
+// pris sortering knappar
+let sort = document.getElementsByName("sort");
 
 
+function checkSorting() {
+	if (sort[0].checked) { //kontrollerar om första radio knapp är checked (selected)
+		currentSortOrder = "lowtohigh";
+	} else if (sort[1].checked) {//kontrollerar om andra radio knapp är checked (selected)
+		currentSortOrder = "hightolow";
+	} else if (sort[2].checked) //Lägg till en radio knapp som visar default ordning
+    currentSortOrder = "default";
+	fetchCourses();
+}
+
+//Lägg till eventlistner till radio knappar
+sort[0].addEventListener("change", checkSorting);
+sort[1].addEventListener("change", checkSorting);
+sort[2].addEventListener("change", checkSorting);

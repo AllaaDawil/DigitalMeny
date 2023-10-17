@@ -10,16 +10,17 @@
 	border-radius: 50%;
 }
 
-.container1 {
-	margin-top: 5em;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+#cards-menu {
+	margin-top: 63px;
 	background-image: url(./bilder_lucky_duck/brickwall.jpg);
 	background-size: cover;
 	background-position: center;
 	box-sizing: border-box;
 	border-style: ridge;
+}
+
+#cards-menu > div{
+    margin-top: 1rem;
 }
 
 .carouselExampleIndicators {

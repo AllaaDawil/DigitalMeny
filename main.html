@@ -25,8 +25,8 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <div class="d-grid gap-2 d-md-block">
-                  <button class="btn btn-primary" type="button">Svenska</button>
-                  <button class="btn btn-danger" type="button">English</button>
+                  <button class="btn btn-primary" type="button" id="svenskaBtn">Svenska</button><!--Add id -->
+                  <button class="btn btn-danger" type="button" id="englishBtn">English</button><!--Add id -->
                 </div>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,7 +35,7 @@
                   <ul class="dropdown-menu">
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckLowHigh">
+                        <input type="radio" name="sort" class="form-check-input" id="dropdownCheckLowHigh"><!--byter checkbox till radio/ Ge den ett namn-->
                         <label class="form-check-label" for="dropdownCheckLowHigh">
                           Lägsta - Högsta Pris
                         </label>
@@ -43,9 +43,17 @@
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckHighLow">
+                        <input type="radio" name="sort" class="form-check-input" id="dropdownCheckHighLow"><!--byter checkbox till radio/ Ge den ett namn-->
                         <label class="form-check-label" for="dropdownCheckHighLow">
                           Högsta - Lägsta Pris
+                        </label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <div class="form-check">
+                        <input type="radio" name="sort" class="form-check-input" id="dropdownCheckHighLow"><!--byter checkbox till radio/ Ge den ett namn-->
+                        <label class="form-check-label" for="dropdownCheckHighLow">
+                          Meny
                         </label>
                       </div>
                     </div>
@@ -118,7 +126,11 @@
           </div>
         </div>
       </nav>
-      
+      <div class="container1">
+        <div class="row" id="cards-menu">
+          <!--cards ska genereras här-->
+        </div>
+      </div>
       
 
       <div id="carouselExampleIndicators" class="carousel slide">
@@ -161,8 +173,8 @@
       </div>
 
 
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 my-2 border-top"><!--Ändrade på py-my-till 2-->
           <div class="col-md-4 d-flex align-items-center">
             <img src="./bilder_lucky_duck/lucky_duck.png" width="40" height="40" class="img-thumbnail" alt="Lucky Duck Ikon">
           </div>

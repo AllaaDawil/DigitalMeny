@@ -32,7 +32,7 @@ async function fetchCourses() {
 			//Konttrolera om maträtt har ett difinerat pris
 			card.innerHTML = "<b>"+course.name[language]+"</b> ‧ ";
 			if(typeof(course.price) != 'undefined')
-				card.innerHTML += course.price[language]+course.currency[language];
+				card.innerHTML += "<b>"+course.price[language]+course.currency[language]+"</b>";
 			else 
 			{
 				//Om inget pris är definierat visa halva och hela storlekar med priser
@@ -77,10 +77,12 @@ function checkSorting() {
 		currentSortOrder = "lowtohigh";
 	} else if (sort[1].checked) {//kontrollerar om andra radio knapp är checked (selected)
 		currentSortOrder = "hightolow";
-	}
+	} else if (sort[2].checked) //Lägg till en radio knapp som visar default ordning
+    currentSortOrder = "default";
 	fetchCourses();
 }
 
 //Lägg till eventlistner till radio knappar
 sort[0].addEventListener("change", checkSorting);
 sort[1].addEventListener("change", checkSorting);
+sort[2].addEventListener("change", checkSorting);

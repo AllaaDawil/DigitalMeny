@@ -1,4 +1,29 @@
+*{
+    font-family: cursive;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+
 .navbar-brand > img{
     border-radius: 50%;
 }
   
+.container1{
+    margin-top: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./bilder_lucky_duck/brickwall.jpg);
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box; 
+    border-style: ridge;
+}
+
+.carouselExampleIndicators{
+    box-sizing: border-box; 
+    
+}

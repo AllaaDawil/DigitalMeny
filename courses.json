@@ -1,8 +1,8 @@
 {
 	"courses": [
 		{
+			"id": 1,
 			"name": {
-				"id": 1,
 				"sv": "FLÄSKFILÉPLANKA",
 				"en": "PORK TENDERLOIN PLANK STEAK"
 			},
@@ -28,8 +28,8 @@
 			}
 		},
 		{
+			"id": 2,
 			"name": {
-				"id": 2,
 				"sv": "BIFF RYDBERG",
 				"en": "BIFF RYDBERG"
 			},
@@ -55,8 +55,8 @@
 			}
 		},
 		{
+			"id": 3,
 			"name": {
-				"id": 3,
 				"sv": "SPICY CHEESEBURGER",
 				"en": "SPICY CHEESEBURGER"
 			},
@@ -82,8 +82,8 @@
 			}
 		},
 		{
+			"id": 4,
 			"name": {
-				"id": 4,
 				"sv": "HALLOUMI BURGARE",
 				"en": "HALLOUMI BURGER"
 			},
@@ -109,8 +109,8 @@
 			}
 		},
 		{
+			"id": 5,
 			"name": {
-				"id": 5,
 				"sv": "FISH'N CHIPS",
 				"en": "FISH'N CHIPS"
 			},
@@ -136,8 +136,8 @@
 			}
 		},
 		{
+			"id": 6,
 			"name": {
-				"id": 6,
 				"sv": "HUSETS SCHNITZEL",
 				"en": "SCHNITZEL"
 			},
@@ -163,8 +163,8 @@
 			}
 		},
 		{
+			"id": 7,
 			"name": {
-				"id": 7,
 				"sv": "CAESARSALLAD",
 				"en": "CAESAR SALAD"
 			},

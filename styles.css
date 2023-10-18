@@ -25,10 +25,6 @@
 	border-style: ridge;
 }
 
-#cards-menu > div {
-	margin-top: 1rem;
-}
-
 .carouselExampleIndicators {
 	box-sizing: border-box;
 }

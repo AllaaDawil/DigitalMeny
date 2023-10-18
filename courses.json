@@ -180,7 +180,7 @@
 				"sv": 85,
 				"en": 85
 			},
-			"priceWhole": {
+			"price": {
 				"sv": 139,
 				"en": 139
 			},
@@ -222,6 +222,10 @@
 			"foodType": {
 				"sv": ["Fisk"],
 				"en": ["Fish"]
+			},
+			"allergies": {
+				"sv": [""],
+				"en": [""]
 			}
 		},
 		{
@@ -269,7 +273,7 @@
 				"sv": 109,
 				"en": 109
 			},
-			"priceWhole": {
+			"price": {
 				"sv": 189,
 				"en": 189
 			},

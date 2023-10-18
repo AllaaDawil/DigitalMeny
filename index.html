@@ -13,13 +13,13 @@
     <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img src="./bilder_lucky_duck/lucky_duck.png" alt="Lucky Duck Ikon" width="40" height="40" class="d-inline-block align-text-center"><h1>Lucky Duck Meny</h1></a>
+            <img src="./bilder_lucky_duck/lucky_duck.png" alt="Lucky Duck Ikon" width="40" height="40" class="d-inline-block align-text-center"><h1 id="h1"></h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Lucky Duck Meny</h5> <!--check size of h5 in css and add it to h1 if we want-->
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><h5 id="h5"></h5> <!--check size of h5 in css and add it to h1 if we want-->
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
@@ -29,94 +29,72 @@
                   <button class="btn btn-danger" type="button" id="englishBtn">English</button><!--Add id -->
                 </div>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="prisTitle">
                     Pris-filter
                   </a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu" id="priceSortFilter">
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="radio" name="sort" class="form-check-input" id="dropdownCheckLowHigh"><!--byter checkbox till radio/ Ge den ett namn-->
-                        <label class="form-check-label" for="dropdownCheckLowHigh">
-                          Lägsta - Högsta Pris
-                        </label>
+                        <input class="priceCheckBox form-check-input" type="checkbox" name="priceAscending" id="priceAscendingCheck" /><!--byter checkbox till radio/ Ge den ett namn-->
+                        <label class="form-check-label" for="priceAscendingCheck" id="priceAscendingLabel"></label>
                       </div>
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="radio" name="sort" class="form-check-input" id="dropdownCheckHighLow"><!--byter checkbox till radio/ Ge den ett namn-->
-                        <label class="form-check-label" for="dropdownCheckHighLow">
-                          Högsta - Lägsta Pris
-                        </label>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <div class="form-check">
-                        <input type="radio" name="sort" class="form-check-input" id="dropdownDefault"><!--byter checkbox till radio/ Ge den ett namn-->
-                        <label class="form-check-label" for="dropdownDefault">
-                          Osorterad
-                        </label>
+                        <input class="priceCheckBox form-check-input" type="checkbox" name="priceDescending" id="priceDescendingCheck" /><!--byter checkbox till radio/ Ge den ett namn-->
+                        <label class="form-check-label" for="priceDescendingCheck" id="priceDescendingLabel"></label>
                       </div>
                     </div>
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Protein Val
-                  </a>
-                  <ul class="dropdown-menu">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="proteinTitle"></a>
+                  <ul class="dropdown-menu" id="foodTypeFilter">
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckVego">
-                        <label class="form-check-label" for="dropdownCheckVego">
-                          Vegetariskt
-                        </label>
+                        <input type="checkbox" class="form-check-input" name="meatVegetarian" id="meatVegetarianCheck"/>
+                        <label class="form-check-label" for="meatVegetarianCheck" id="meatVegetarianLabel"></label>
                       </div>
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckMeat">
-                        <label class="form-check-label" for="dropdownCheckMeat">
-                          Kött
-                        </label>
+                        <input type="checkbox" class="form-check-input" name="meatChicken" id="meatChickenCheck"/>
+                        <label class="form-check-label" for="meatChickenCheck" id="meatChickenLabel"></label>
                       </div>
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckPork">
-                        <label class="form-check-label" for="dropdownCheckPork">
-                          Fläsk
-                        </label>
+                        <input type="checkbox" class="form-check-input" name="meatPork" id="meatPorkCheck"/>
+                        <label class="form-check-label" for="meatPorkCheck" id="meatPorkLabel"></label>
                       </div>
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckFish">
-                        <label class="form-check-label" for="dropdownCheckFish">
-                          Fisk
-                        </label>
+                        <input type="checkbox" class="form-check-input" name="meatBeef" id="meatBeefCheck"/>
+                        <label class="form-check-label" for="meatBeefCheck" id="meatBeefLabel"></label>
                       </div>
                     </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="meatFish" id="meatFishCheck"/>
+                          <label class="form-check-label" for="meatFishCheck" id="meatFishLabel"></label>
+                        </div>
+                      </div>
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Allergier
-                  </a>
-                  <ul class="dropdown-menu">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="allergiesTitle"></a>
+                  <ul class="dropdown-menu" id="allergiesTypeFilter">
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckLactose">
-                        <label class="form-check-label" for="dropdownCheckLactose">
-                          Laktosfria Maträtter
-                        </label>
+                        <input type="checkbox" class="form-check-input" name="lactose" id="lactoseCheck"/>
+                        <label class="form-check-label" for="lactoseCheck" id="lactoseLabel"></label>
                       </div>
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheckGluten">
-                        <label class="form-check-label" for="dropdownCheckGluten">
-                          Glutenfria Maträtter
-                        </label>
+                        <input type="checkbox" class="form-check-input" name="gluten" id="glutenCheck"/>
+                        <label class="form-check-label" for="glutenCheck" id="glutenLabel"></label>
                       </div>
                     </div>
                   </ul>
@@ -126,12 +104,13 @@
           </div>
         </div>
       </nav>
-      <div class="container1">
-        <div class="row" id="cards-menu">
-          <!--cards ska genereras här-->
-        </div>
-      </div>
       
+      <main>
+        <div class="container-fluid">
+          <div class="row" id="cards-menu">
+            <!--cards ska genereras här-->
+        </div>
+      </main>
 
       <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-indicators">
@@ -174,7 +153,7 @@
 
 
       
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 my-2 border-top"><!--Ändrade på py-my-till 2-->
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 my-2"><!--Ändrade på py-my-till 2-->
           <div class="col-md-4 d-flex align-items-center">
             <img src="./bilder_lucky_duck/lucky_duck.png" width="40" height="40" class="img-thumbnail" alt="Lucky Duck Ikon">
           </div>

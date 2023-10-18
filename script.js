@@ -180,7 +180,7 @@ async function fetchCourses() {
 			console.log(sortedCourses);
 
 			let output = document.getElementById("cards-menu");
-			output.innerHTML = ""; //empty string that we fill with the list below
+			output.innerHTML = ""; //clear the string that we fill with the card below
 
 			sortedCourses.forEach((course) => {
 				const card = document.createElement("div");
@@ -196,17 +196,6 @@ async function fetchCourses() {
 
 				output.appendChild(card);
 			});
-			for (let i = 0; i < sortedCourses.length; i++) {
-				let course = sortedCourses[i];
-
-				if (course.priceHalf) {
-					//if an object has priceHalf in JSON (courses.json), we print out the menu a different way
-					output += `<li><h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p></li>`;
-				} else {
-					//the normal way, [language] is an dynamic key to access object property (it gets the value associated with the key "sv" or "en" via variable language)
-					output += `<li><h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p></li>`;
-				}
-			}
 		} //end of showCourses function
 
 		showCourses(language, courses); //call showCourses initially to display all courses

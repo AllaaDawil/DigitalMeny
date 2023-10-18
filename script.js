@@ -1,9 +1,5 @@
-//maybe we need to declare let courses; here outside the try instead of declaring it as a const inside, to make it work with all the filtering later
-let language = "sv"; // Default language
-let currentSortOrder = "default"; //Default sortering
-
 async function fetchCourses() {
-	//asynchronous function allows the rest of the code to continue executing while waiting for the asynchronous operation to complete.
+	//asynchronous function allows the rest of the code to continue executin while waiting for the asynchronous operation to complete.
 	try {
 		const response = await fetch("courses.json"); //fetch = HTTP request for courses.json.
 		if (!response.ok) {
@@ -11,96 +7,260 @@ async function fetchCourses() {
 			throw new Error(`HTTP error! Status: ${response.status}`); //throws 404 to console if it doesn't find the file.
 		}
 		const accessCourses = await response.json(); //json() is parsing courses.json file and converts it to a javaScript object.
-		const courses = accessCourses.courses; //In the converted JSON file use courses array and assign it to a variable called courses here.
+		const startCourses = accessCourses.courses; //In the converted JSON file use courses array and assign it to a variable called courses here.
 
-		const menuContainer = document.getElementById("cards-menu");
-		menuContainer.innerHTML = ""; // Resetting menu
+		//Start languages
+		const h1 = document.querySelector("#h1");
+		const h5 = document.querySelector("#h5");
+		const prisTitle = document.querySelector("#prisTitle");
+		const priceAscendingLabel = document.querySelector(
+			"#priceAscendingLabel"
+		);
+		const priceDescendingLabel = document.querySelector(
+			"#priceDescendingLabel"
+		);
+		const proteinTitle = document.querySelector("#proteinTitle");
+		const meatVegetarianLabel = document.querySelector(
+			"#meatVegetarianLabel"
+		);
+		const meatChickenLabel = document.querySelector("#meatChickenLabel");
+		const meatPorkLabel = document.querySelector("#meatPorkLabel");
+		const meatBeefLabel = document.querySelector("#meatBeefLabel");
+		const meatFishLabel = document.querySelector("#meatFishLabel");
+		const allergiesTitle = document.querySelector("#allergiesTitle");
+		const lactoseLabel = document.querySelector("#lactoseLabel");
+		const glutenLabel = document.querySelector("#glutenLabel");
+		const englishBtn = document.getElementById("englishBtn");
+		const svenskaBtn = document.getElementById("svenskaBtn");
 
-		// Ternary condition/ använder nested if vilkor
-		if (currentSortOrder != "default") {
-			if (currentSortOrder == "hightolow")
-				//sortera priset i (courses array) i fallande ordning
-				courses.sort(
-					(b, a) =>
-						(typeof a.price == "undefined"
-							? a.priceWhole.sv
-							: a.price.sv) -
-						(typeof b.price == "undefined"
-							? b.priceWhole.sv
-							: b.price.sv)
-				);
-			else if (currentSortOrder == "lowtohigh")
-				//sortera priset i (courses array) i stigande ordning
-				courses.sort(
-					(a, b) =>
-						(typeof a.price == "undefined"
-							? a.priceWhole.sv
-							: a.price.sv) -
-						(typeof b.price == "undefined"
-							? b.priceWhole.sv
-							: b.price.sv)
-				);
+		function svTranslation() {
+			h1.textContent = "Lucky Duck Meny";
+			h5.textContent = "Lucky Duck Meny";
+			prisTitle.textContent = "Pris-filter";
+			priceAscendingLabel.textContent = "Stigande priser";
+			priceDescendingLabel.textContent = "Fallande priser";
+			proteinTitle.textContent = "Protein Val";
+			meatVegetarianLabel.textContent = "Vegetarisk";
+			meatChickenLabel.textContent = "Kyckling";
+			meatPorkLabel.textContent = "Fläsk";
+			meatBeefLabel.textContent = "Nöt";
+			meatFishLabel.textContent = "Fisk";
+			allergiesTitle.textContent = "Allergier";
+			lactoseLabel.textContent = "Laktosfritt";
+			glutenLabel.textContent = "Gluten-free";
 		}
 
-		//skapa ny card element for varje maträtt
-		courses.forEach((course) => {
-			const card = document.createElement("div");
-			card.classList.add("col-md-4", "mb-3");
+		function enTranslation() {
+			h1.textContent = "Lucky Duck Menu";
+			h5.textContent = "Lucky Duck Menu";
+			prisTitle.textContent = "Price-filter";
+			priceAscendingLabel.textContent = "Ascending prices";
+			priceDescendingLabel.textContent = "Descending prices";
+			proteinTitle.textContent = "Protein choice";
+			meatVegetarianLabel.textContent = "Vegetarian";
+			meatChickenLabel.textContent = "Chicken";
+			meatPorkLabel.textContent = "Pork";
+			meatBeefLabel.textContent = "Beef";
+			meatFishLabel.textContent = "Fish";
+			allergiesTitle.textContent = "Allergies";
+			lactoseLabel.textContent = "Lactose-free";
+			glutenLabel.textContent = "Gluten-free";
+		}
 
-			//Konttrolera om maträtt har ett difinerat pris
-			card.innerHTML = `<b>${course.name[language]} </b>`;
-			if (typeof course.price != "undefined")
-				card.innerHTML += `<b>${course.price[language]} ${course.currency[language]}</b>`;
-			else {
-				//Om inget pris är definierat visa halva och hela storlekar med priser
-				card.innerHTML += `<b>${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} / </b> `;
-				card.innerHTML += `<b>${course.sizeWhole[language]} ${course.priceWhole[language]} ${course.currency[language]} </b>`;
+		englishBtn.addEventListener("click", function () {
+			language = "en";
+			enTranslation();
+			showCourses(language, courses);
+		});
+		svenskaBtn.addEventListener("click", function () {
+			language = "sv";
+			svTranslation();
+			showCourses(language, courses);
+		});
+
+		svTranslation(); //Default language on rest of the site
+		let language = "sv"; //default language on menu, taking the property sv (and en) from the objects in the JSON file
+
+		// stopPropogation() prevents the closing of the filter/sorting dropdowns (doesn't prevent clicks from happening like preventDefault() does)
+		const preventClose = document.querySelectorAll(".dropdown");
+		preventClose.forEach((box) => {
+			box.addEventListener("click", (event) => {
+				event.stopPropagation();
+			});
+		});
+
+		let meatVegetarianCheck = document.querySelector(
+			"#meatVegetarianCheck"
+		);
+		let meatChickenCheck = document.querySelector("#meatChickenCheck");
+		let meatPorkCheck = document.querySelector("#meatPorkCheck");
+		let meatBeefCheck = document.querySelector("#meatBeefCheck");
+		let meatFishCheck = document.querySelector("#meatFishCheck");
+		let glutenCheck = document.querySelector("#glutenCheck");
+		let lactoseCheck = document.querySelector("#lactoseCheck");
+		let priceAscendingCheck = document.querySelector(
+			"#priceAscendingCheck"
+		);
+		let priceDescendingCheck = document.querySelector(
+			"#priceDescendingCheck"
+		);
+
+		let courses = startCourses; //change back to just use courses uo there instead. startCourses for use of "the original menu"
+
+		function showCourses(language, courses) {
+			const selectedFoodTypes = [];
+
+			if (meatChickenCheck.checked) {
+				selectedFoodTypes.push("Kyckling", "Chicken");
 			}
-			card.innerHTML += `<p>${course.about[language]}</p>`; //lägg till maträtt description till varje card
+			if (meatPorkCheck.checked) {
+				selectedFoodTypes.push("Fläsk", "Pork");
+			}
+			if (meatBeefCheck.checked) {
+				selectedFoodTypes.push("Nöt", "Beef");
+			}
+			if (meatFishCheck.checked) {
+				selectedFoodTypes.push("Fisk", "Fish");
+			}
+			if (meatVegetarianCheck.checked) {
+				selectedFoodTypes.length = 0;
+				selectedFoodTypes.push("Vegetarisk", "Vegetarian");
+			}
 
-			menuContainer.appendChild(card);
+			const selectedAllergyTypes = [];
+			if (glutenCheck.checked) {
+				selectedAllergyTypes.push("Gluten", "Gluten");
+			}
+			if (lactoseCheck.checked) {
+				selectedAllergyTypes.push("Laktos", "Lactose");
+			}
+
+			const filteredCourses =
+				selectedFoodTypes.length > 0
+					? courses.filter((course) => {
+							//if the checkbox array has any foodtype in it then keep filtering and set the new filtered out courses to the variable otherwise return the untouched courses to the variable
+							const courseFoodType = course.foodType[language]; //get the whole array for a course foodType in JSON
+							return selectedFoodTypes.some(
+								(
+									selectedFoodType //return every item in the the selectedFoodType array if the courseFoodType array includes matches every item in the selectedFoodType array
+								) => courseFoodType.includes(selectedFoodType) //check to see if the JSON foodcourses foodType array includes every item from the selcted
+							);
+					  })
+					: courses;
+
+			const filteredAllergyCourses =
+				selectedAllergyTypes.length > 0
+					? filteredCourses.filter((course) => {
+							const courseAllergyType =
+								course.allergies[language]; //get the whole array for if it DOES NOT include the choosen allergies in JSON
+							return !selectedAllergyTypes.some(
+								(selectedAllergyType) =>
+									courseAllergyType.includes(
+										selectedAllergyType
+									)
+							);
+					  })
+					: filteredCourses;
+
+			// let sortedCourses = []; //Don't think sortedcourses is necessary since filteredallergycourses already is an array, so we can just use only filteredallergycourses instead
+			let sortedCourses = filteredAllergyCourses;
+
+			if (priceAscendingCheck.checked) {
+				sortedCourses = sortedCourses.toSorted((courseA, courseB) => {
+					return courseA.price[language] - courseB.price[language];
+				});
+			} else if (priceDescendingCheck.checked) {
+				sortedCourses = sortedCourses.toSorted((courseA, courseB) => {
+					return courseB.price[language] - courseA.price[language];
+				});
+			}
+
+			console.log(selectedFoodTypes);
+			console.log(selectedAllergyTypes);
+			console.log(sortedCourses);
+
+			let output = document.getElementById("cards-menu");
+			output.innerHTML = ""; //empty string that we fill with the list below
+
+			sortedCourses.forEach((course) => {
+				const card = document.createElement("div");
+				card.classList.add("col-md-4", "mb-3");
+
+				if (course.priceHalf) {
+					//if an object has priceHalf in JSON (courses.json), we print out the menu a different way
+					card.innerHTML += `<h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+				} else {
+					//the normal way, [language] is an dynamic key to access object property (it gets the value associated with the key "sv" or "en" via variable language)
+					card.innerHTML += `<h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+				}
+
+				output.appendChild(card);
+			});
+			for (let i = 0; i < sortedCourses.length; i++) {
+				let course = sortedCourses[i];
+
+				if (course.priceHalf) {
+					//if an object has priceHalf in JSON (courses.json), we print out the menu a different way
+					output += `<li><h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p></li>`;
+				} else {
+					//the normal way, [language] is an dynamic key to access object property (it gets the value associated with the key "sv" or "en" via variable language)
+					output += `<li><h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p></li>`;
+				}
+			}
+		} //end of showCourses function
+
+		showCourses(language, courses); //call showCourses initially to display all courses
+
+		meatVegetarianCheck.addEventListener("change", function () {
+			if (this.checked) {
+				meatChickenCheck.checked = false;
+				meatPorkCheck.checked = false;
+				meatBeefCheck.checked = false;
+				meatFishCheck.checked = false;
+			}
+			showCourses(language, courses);
+		});
+
+		const realMeatTypeCheck = [
+			meatChickenCheck,
+			meatPorkCheck,
+			meatBeefCheck,
+			meatFishCheck,
+		];
+
+		realMeatTypeCheck.forEach((realMeatCheck) => {
+			realMeatCheck.addEventListener("change", function () {
+				if (this.checked) {
+					meatVegetarianCheck.checked = false;
+				}
+				showCourses(language, courses);
+			});
+		});
+
+		const allergiesTypeFilter = document.querySelector(
+			"#allergiesTypeFilter"
+		);
+		allergiesTypeFilter.onclick = function () {
+			showCourses(language, courses);
+		};
+
+		priceAscendingCheck.addEventListener("change", function () {
+			//"this" refers to the priceAscendingCheck checkbox element
+			if (this.checked) {
+				priceDescendingCheck.checked = false;
+			}
+			showCourses(language, courses);
+		});
+
+		priceDescendingCheck.addEventListener("change", function () {
+			if (this.checked) {
+				priceAscendingCheck.checked = false;
+			}
+			showCourses(language, courses);
 		});
 	} catch (error) {
 		//Used together with "try", to handle errors that may occur during the execution of the code.
 		console.error("Error:", error);
 	}
 }
-
-// Hämtar courses
 fetchCourses();
-
-// välja ett språk
-let englishBtn = document.getElementById("englishBtn");
-let svenskaBtn = document.getElementById("svenskaBtn");
-
-//lägg till eventlistener
-englishBtn.addEventListener("click", function () {
-	language = "en";
-	fetchCourses();
-});
-
-svenskaBtn.addEventListener("click", function () {
-	language = "sv";
-	fetchCourses();
-});
-
-// pris sortering knappar
-let sort = document.getElementsByName("sort");
-
-function checkSorting() {
-	if (sort[0].checked) {
-		//kontrollerar om första radio knapp är checked (selected)
-		currentSortOrder = "lowtohigh";
-	} else if (sort[1].checked) {
-		//kontrollerar om andra radio knapp är checked (selected)
-		currentSortOrder = "hightolow";
-	} else if (sort[2].checked)
-		//Lägg till en radio knapp som visar default ordning
-		currentSortOrder = "default";
-	fetchCourses();
-}
-
-//Lägg till eventlistner till radio knappar
-sort[0].addEventListener("change", checkSorting);
-sort[1].addEventListener("change", checkSorting);
-sort[2].addEventListener("change", checkSorting);

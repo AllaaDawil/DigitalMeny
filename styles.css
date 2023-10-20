@@ -1,27 +1,9 @@
-/*
-* {
-	font-family: 'Courier New', Courier, monospace;
-	box-sizing: border-box;
-	scroll-behavior: smooth;
-}
-*/
-/*krav från kund, minsta och max width på menyn (sätt .cards till 80ch istället kanske "själva kolumnerna för menyn" */
-/* .container-fluid {
-	max-width: 80ch;
-	min-width: 320px;
- } /*eller 20rem */
-
 .navbar-brand > img {
 	border-radius: 50%;
 }
 
 #cards-menu {
 	margin-top: 63px;
-	background-image: url(./bilder_lucky_duck/brickwall.jpg);
-	background-size: cover;
-	background-position: center;
-	box-sizing: border-box;
-	/* border-style: ridge;  Denna ser olika ut i olika browsers*/
 }
 
 #cards-menu > div {
@@ -43,18 +25,3 @@ h2 {
 	font-size: 0.9rem;
 	font-weight: 600;
 }
-
-/*
-.carousel-item {
-	max-height: 600px;
-}
-
-.carousel-item img {
-	object-fit: cover;
-} */
-/*
-dessa 2 gör så att img passar stoleksmässigt in i item,
-det blir att den "zoomar" in i bilden när man gör fönstret större eller mindre, 
-men då måste height sättes på item som jag gjort där,
-och då kanske inte hela bilden syns som tänkt beroende på fönster storlek*/
-/*test*/

@@ -18,6 +18,12 @@
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
 		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" href="./styles.css" />
 	</head>
 	<body>
@@ -50,7 +56,6 @@
 				>
 					<div class="offcanvas-header">
 						<h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
-						<!--check size of h5 in css and add it to h1 if we want-->
 						<button
 							type="button"
 							class="btn-close"
@@ -62,11 +67,11 @@
 						<div class="navbar-nav justify-content-end flex-grow-1 pe-3">
 							<div class="d-grid gap-2 d-md-block">
 								<button class="btn btn-primary" type="button" id="svenskaBtn">
-									Svenska</button
-								><!--Add id -->
+									Svenska
+								</button>
 								<button class="btn btn-danger" type="button" id="englishBtn">
-									English</button
-								><!--Add id -->
+									English
+								</button>
 							</div>
 							<div class="nav-item dropdown">
 								<a
@@ -87,7 +92,7 @@
 												type="checkbox"
 												name="priceAscending"
 												id="priceAscendingCheck"
-											/><!--byter checkbox till radio/ Ge den ett namn-->
+											/>
 											<label
 												class="form-check-label"
 												for="priceAscendingCheck"
@@ -102,7 +107,7 @@
 												type="checkbox"
 												name="priceDescending"
 												id="priceDescendingCheck"
-											/><!--byter checkbox till radio/ Ge den ett namn-->
+											/>
 											<label
 												class="form-check-label"
 												for="priceDescendingCheck"
@@ -359,9 +364,7 @@
 			</button>
 		</div>
 
-		<footer
-			class="d-flex flex-wrap justify-content-between align-items-center p-2 m-2"
-		>
+		<footer class="d-flex flex-wrap justify-content-between align-items-center">
 			<div class="col-md-4 d-flex align-items-center">
 				<img
 					src="./bilder_lucky_duck/lucky_duck.png"

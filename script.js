@@ -30,8 +30,8 @@ async function fetchCourses() {
 		const svenskaBtn = document.getElementById("svenskaBtn");
 
 		function svTranslation() {
-			h1.textContent = "Lucky Duck Meny";
-			h5.textContent = "Lucky Duck Meny";
+			h1.textContent = "Lucky Duck Café & Bar";
+			h5.textContent = "Lucky Duck Café & Bar";
 			prisTitle.textContent = "Pris-filter";
 			priceAscendingLabel.textContent = "Stigande priser";
 			priceDescendingLabel.textContent = "Fallande priser";
@@ -47,8 +47,8 @@ async function fetchCourses() {
 		}
 
 		function enTranslation() {
-			h1.textContent = "Lucky Duck Menu";
-			h5.textContent = "Lucky Duck Menu";
+			h1.textContent = "Lucky Duck Café & Bar";
+			h5.textContent = "Lucky Duck Café & Bar";
 			prisTitle.textContent = "Price-filter";
 			priceAscendingLabel.textContent = "Ascending prices";
 			priceDescendingLabel.textContent = "Descending prices";
@@ -181,7 +181,7 @@ async function fetchCourses() {
 				/*if an object has "priceHalf" in courses.json, print out course this way...
 				...else the normal way*/
 				if (course.priceHalf) {
-					card.innerHTML += `<h2>${course.name[language]} - ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} - ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+					card.innerHTML += `<h2>${course.name[language]}<br />${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} - ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
 				} else {
 					card.innerHTML += `<h2>${course.name[language]} - ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
 				}

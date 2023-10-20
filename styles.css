@@ -1,26 +1,27 @@
+/* Stilar för logotypen inom .navbar-brand */
 .navbar-brand > img {
 	border-radius: 50%;
 }
-
+/* Stilar för element med id #cards-menu */
 #cards-menu {
 	margin-top: 63px;
 }
-
+/* Stilar för direkt underordnade div-element inom #cards-menu */
 #cards-menu > div {
 	margin-top: 1rem;
-	max-width: 80ch;
+	max-width: 80ch;/* Begränsa maximal bredd för innehåll i varje div */
 }
 
 .carouselExampleIndicators {
 	box-sizing: border-box;
 }
-
+/* Stilar för h1-element */
 h1 {
 	display: inline;
 	font-size: 1.25rem;
 	font-weight: 400;
 }
-
+/* Stilar för h2-element */
 h2 {
 	font-size: 0.9rem;
 	font-weight: 600;

@@ -11,7 +11,7 @@ async function fetchCourses() {
 
 		//Start languages
 		const h1 = document.querySelector("#h1");
-		const h5 = document.querySelector("#h5");
+		const h5 = document.querySelector("#offcanvasNavbarLabel");
 		const prisTitle = document.querySelector("#prisTitle");
 		const priceAscendingLabel = document.querySelector(
 			"#priceAscendingLabel"

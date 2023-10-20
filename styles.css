@@ -21,12 +21,12 @@
 	background-size: cover;
 	background-position: center;
 	box-sizing: border-box;
-	border-style: ridge;
+	/* border-style: ridge;  Denna ser olika ut i olika browsers*/
 }
 
 #cards-menu > div {
 	margin-top: 1rem;
-    max-width: 80ch;
+	max-width: 80ch;
 }
 
 .carouselExampleIndicators {
@@ -40,8 +40,8 @@ h1 {
 }
 
 h2 {
-    font-size: 0.9rem;
-    font-weight: 600;
+	font-size: 0.9rem;
+	font-weight: 600;
 }
 
 /*

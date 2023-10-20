@@ -184,14 +184,14 @@ async function fetchCourses() {
 
 			sortedCourses.forEach((course) => {
 				const card = document.createElement("div");
-				card.classList.add("col-md-4", "mb-3");
+				card.classList.add("col-md-6", "mb-3");
 
 				if (course.priceHalf) {
 					//if an object has priceHalf in JSON (courses.json), we print out the menu a different way
-					card.innerHTML += `<h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+					card.innerHTML += `<h2> ${course.name[language]} - ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} - ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
 				} else {
 					//the normal way, [language] is an dynamic key to access object property (it gets the value associated with the key "sv" or "en" via variable language)
-					card.innerHTML += `<h2>${course.id} ${course.name[language]} <span style="color:blue">${course.foodType[language]}</span> <span style="color:red">${course.allergies[language]}</span> ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+					card.innerHTML += `<h2> ${course.name[language]} - ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
 				}
 
 				output.appendChild(card);

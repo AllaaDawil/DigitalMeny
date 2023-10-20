@@ -1,11 +1,10 @@
+/*
 * {
-	font-family: cursive;
-	padding: 0;
-	margin: 0;
+	font-family: 'Courier New', Courier, monospace;
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 }
-
+*/
 /*krav från kund, minsta och max width på menyn (sätt .cards till 80ch istället kanske "själva kolumnerna för menyn" */
 /* .container-fluid {
 	max-width: 80ch;
@@ -27,6 +26,7 @@
 
 #cards-menu > div {
 	margin-top: 1rem;
+    max-width: 80ch;
 }
 
 .carouselExampleIndicators {
@@ -35,18 +35,24 @@
 
 h1 {
 	display: inline;
-	font-size: 20px;
+	font-size: 1.25rem;
 	font-weight: 400;
 }
 
-/* .carousel-item {
-	height: 500px;
+h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/*
+.carousel-item {
+	max-height: 600px;
 }
 
 .carousel-item img {
 	object-fit: cover;
-} 
-
+} */
+/*
 dessa 2 gör så att img passar stoleksmässigt in i item,
 det blir att den "zoomar" in i bilden när man gör fönstret större eller mindre, 
 men då måste height sättes på item som jag gjort där,

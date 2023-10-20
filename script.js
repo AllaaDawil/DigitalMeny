@@ -13,16 +13,12 @@ async function fetchCourses() {
 		const h1 = document.querySelector("#h1");
 		const h5 = document.querySelector("#offcanvasNavbarLabel");
 		const prisTitle = document.querySelector("#prisTitle");
-		const priceAscendingLabel = document.querySelector(
-			"#priceAscendingLabel"
-		);
+		const priceAscendingLabel = document.querySelector("#priceAscendingLabel");
 		const priceDescendingLabel = document.querySelector(
 			"#priceDescendingLabel"
 		);
 		const proteinTitle = document.querySelector("#proteinTitle");
-		const meatVegetarianLabel = document.querySelector(
-			"#meatVegetarianLabel"
-		);
+		const meatVegetarianLabel = document.querySelector("#meatVegetarianLabel");
 		const meatChickenLabel = document.querySelector("#meatChickenLabel");
 		const meatPorkLabel = document.querySelector("#meatPorkLabel");
 		const meatBeefLabel = document.querySelector("#meatBeefLabel");
@@ -89,21 +85,15 @@ async function fetchCourses() {
 			});
 		});
 
-		let meatVegetarianCheck = document.querySelector(
-			"#meatVegetarianCheck"
-		);
+		let meatVegetarianCheck = document.querySelector("#meatVegetarianCheck");
 		let meatChickenCheck = document.querySelector("#meatChickenCheck");
 		let meatPorkCheck = document.querySelector("#meatPorkCheck");
 		let meatBeefCheck = document.querySelector("#meatBeefCheck");
 		let meatFishCheck = document.querySelector("#meatFishCheck");
 		let glutenCheck = document.querySelector("#glutenCheck");
 		let lactoseCheck = document.querySelector("#lactoseCheck");
-		let priceAscendingCheck = document.querySelector(
-			"#priceAscendingCheck"
-		);
-		let priceDescendingCheck = document.querySelector(
-			"#priceDescendingCheck"
-		);
+		let priceAscendingCheck = document.querySelector("#priceAscendingCheck");
+		let priceDescendingCheck = document.querySelector("#priceDescendingCheck");
 
 		let courses = startCourses; //change back to just use courses uo there instead. startCourses for use of "the original menu"
 
@@ -151,13 +141,9 @@ async function fetchCourses() {
 			const filteredAllergyCourses =
 				selectedAllergyTypes.length > 0
 					? filteredCourses.filter((course) => {
-							const courseAllergyType =
-								course.allergies[language]; //get the whole array for if it DOES NOT include the choosen allergies in JSON
-							return !selectedAllergyTypes.some(
-								(selectedAllergyType) =>
-									courseAllergyType.includes(
-										selectedAllergyType
-									)
+							const courseAllergyType = course.allergies[language]; //get the whole array for if it DOES NOT include the choosen allergies in JSON
+							return !selectedAllergyTypes.some((selectedAllergyType) =>
+								courseAllergyType.includes(selectedAllergyType)
 							);
 					  })
 					: filteredCourses;
@@ -226,15 +212,13 @@ async function fetchCourses() {
 			});
 		});
 
-		const allergiesTypeFilter = document.querySelector(
-			"#allergiesTypeFilter"
-		);
+		const allergiesTypeFilter = document.querySelector("#allergiesTypeFilter");
 		allergiesTypeFilter.onclick = function () {
 			showCourses(language, courses);
 		};
 
 		priceAscendingCheck.addEventListener("change", function () {
-			//"this" refers to the priceAscendingCheck checkbox element
+			//"this" refers to the priceAscendingCheck checkbox element.
 			if (this.checked) {
 				priceDescendingCheck.checked = false;
 			}

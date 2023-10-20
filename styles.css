@@ -9,7 +9,7 @@
 /* Stilar för direkt underordnade div-element inom #cards-menu */
 #cards-menu > div {
 	margin-top: 1rem;
-	max-width: 80ch;/* Begränsa maximal bredd för innehåll i varje div */
+	max-width: 80ch; /* Begränsa maximal bredd för innehåll i varje div */
 }
 
 .carouselExampleIndicators {
@@ -25,4 +25,9 @@ h1 {
 h2 {
 	font-size: 0.9rem;
 	font-weight: 600;
+}
+
+/* no "jumping" pictures */
+.carousel-item {
+	max-height: 800px;
 }

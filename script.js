@@ -1,15 +1,15 @@
+/*asynchronous function allows rest of code continuing executing while waiting for 
+	the asynchronous operation to complete.*/
 async function fetchCourses() {
-	//asynchronous function allows the rest of the code to continue executin while waiting for the asynchronous operation to complete.
 	try {
-		const response = await fetch("courses.json"); //fetch = HTTP request for courses.json.
+		const response = await fetch("courses.json"); //fetch = HTTP request for courses.json file.
 		if (!response.ok) {
-			//if file doesn't get fetch (not ok) throw error (ok  = 200-299 status).
 			throw new Error(`HTTP error! Status: ${response.status}`); //throws 404 to console if it doesn't find the file.
 		}
-		const accessCourses = await response.json(); //json() is parsing courses.json file and converts it to a javaScript object.
-		const startCourses = accessCourses.courses; //In the converted JSON file use courses array and assign it to a variable called courses here.
+		const accessCourses = await response.json(); //json() is parsing courses.json file and converts it to a javaScript object (is the file itself).
+		const courses = accessCourses.courses; //In the converted JSON file use the courses array inside and assign it to a variable called courses.
 
-		//Start languages
+		//Get and declare the languages, and set in sv/en functions
 		const h1 = document.querySelector("#h1");
 		const h5 = document.querySelector("#offcanvasNavbarLabel");
 		const prisTitle = document.querySelector("#prisTitle");
@@ -63,6 +63,7 @@ async function fetchCourses() {
 			glutenLabel.textContent = "Gluten-free";
 		}
 
+		//The language buttons. Changes menu lang => rest of site lang => run main function
 		englishBtn.addEventListener("click", function () {
 			language = "en";
 			enTranslation();
@@ -74,10 +75,10 @@ async function fetchCourses() {
 			showCourses(language, courses);
 		});
 
-		svTranslation(); //Default language on rest of the site
-		let language = "sv"; //default language on menu, taking the property sv (and en) from the objects in the JSON file
+		svTranslation(); //Swedish to default language on rest of the site
+		let language = "sv"; //Swedish to default language on menu; JSON "sv"
 
-		// stopPropogation() prevents the closing of the filter/sorting dropdowns (doesn't prevent clicks from happening like preventDefault() does)
+		// stopPropogation() prevents closing of filter/sorting dropdowns (but not clicks like preventDefault())
 		const preventClose = document.querySelectorAll(".dropdown");
 		preventClose.forEach((box) => {
 			box.addEventListener("click", (event) => {
@@ -85,6 +86,7 @@ async function fetchCourses() {
 			});
 		});
 
+		//Get and declare the filters/sorting
 		let meatVegetarianCheck = document.querySelector("#meatVegetarianCheck");
 		let meatChickenCheck = document.querySelector("#meatChickenCheck");
 		let meatPorkCheck = document.querySelector("#meatPorkCheck");
@@ -95,9 +97,9 @@ async function fetchCourses() {
 		let priceAscendingCheck = document.querySelector("#priceAscendingCheck");
 		let priceDescendingCheck = document.querySelector("#priceDescendingCheck");
 
-		let courses = startCourses; //change back to just use courses uo there instead. startCourses for use of "the original menu"
-
+		//main function for all the logic
 		function showCourses(language, courses) {
+			//if checkboxes checked, push up the corresponding values to the empty array
 			const selectedFoodTypes = [];
 
 			if (meatChickenCheck.checked) {
@@ -117,6 +119,7 @@ async function fetchCourses() {
 				selectedFoodTypes.push("Vegetarisk", "Vegetarian");
 			}
 
+			//same here but for allergies
 			const selectedAllergyTypes = [];
 			if (glutenCheck.checked) {
 				selectedAllergyTypes.push("Gluten", "Gluten");
@@ -125,67 +128,71 @@ async function fetchCourses() {
 				selectedAllergyTypes.push("Laktos", "Lactose");
 			}
 
+			/*if the "selectedFoodTypes" array has any foodtype in it, then filter
+			through JSON "courses" and returns the courses that includes ANY (some) of
+			the foodtypes that are selected. Set those courses to "filteredCourses" array.
+			If not, then just return the original "courses" to the "filteredCourses" array.*/
 			const filteredCourses =
 				selectedFoodTypes.length > 0
 					? courses.filter((course) => {
-							//if the checkbox array has any foodtype in it then keep filtering and set the new filtered out courses to the variable otherwise return the untouched courses to the variable
-							const courseFoodType = course.foodType[language]; //get the whole array for a course foodType in JSON
-							return selectedFoodTypes.some(
-								(
-									selectedFoodType //return every item in the the selectedFoodType array if the courseFoodType array includes matches every item in the selectedFoodType array
-								) => courseFoodType.includes(selectedFoodType) //check to see if the JSON foodcourses foodType array includes every item from the selcted
+							const courseFoodType = course.foodType[language];
+							return selectedFoodTypes.some((selectedFoodType) =>
+								courseFoodType.includes(selectedFoodType)
 							);
 					  })
 					: courses;
 
+			/* Same logic but for allergies. However, this filters through
+			"filteredCourses" array above. And this checks if the
+			courses allergies DOES NOT include any the selected allergies*/
 			const filteredAllergyCourses =
 				selectedAllergyTypes.length > 0
 					? filteredCourses.filter((course) => {
-							const courseAllergyType = course.allergies[language]; //get the whole array for if it DOES NOT include the choosen allergies in JSON
+							const courseAllergyType = course.allergies[language];
 							return !selectedAllergyTypes.some((selectedAllergyType) =>
 								courseAllergyType.includes(selectedAllergyType)
 							);
 					  })
 					: filteredCourses;
 
-			// let sortedCourses = []; //Don't think sortedcourses is necessary since filteredallergycourses already is an array, so we can just use only filteredallergycourses instead
+			/*Had to reference the same array again to make it work*/
 			let sortedCourses = filteredAllergyCourses;
 
+			/*Sorts the filtered array either in ascending or descending order
+			based on price. "toSorted" maintains the original unsorted menu order.*/
 			if (priceAscendingCheck.checked) {
-				sortedCourses = sortedCourses.toSorted((courseA, courseB) => {
+				sortedCourses = filteredAllergyCourses.toSorted((courseA, courseB) => {
 					return courseA.price[language] - courseB.price[language];
 				});
 			} else if (priceDescendingCheck.checked) {
-				sortedCourses = sortedCourses.toSorted((courseA, courseB) => {
+				sortedCourses = filteredAllergyCourses.toSorted((courseA, courseB) => {
 					return courseB.price[language] - courseA.price[language];
 				});
 			}
 
-			console.log(selectedFoodTypes);
-			console.log(selectedAllergyTypes);
-			console.log(sortedCourses);
-
+			//"output" is where all the courses ("card") will get displayed
 			let output = document.getElementById("cards-menu");
-			output.innerHTML = ""; //clear the string that we fill with the card below
+			output.innerHTML = "";
 
 			sortedCourses.forEach((course) => {
 				const card = document.createElement("div");
 				card.classList.add("col-md-6", "mb-3");
 
+				/*if an object has "priceHalf" in courses.json, print out course this way...
+				...else the normal way*/
 				if (course.priceHalf) {
-					//if an object has priceHalf in JSON (courses.json), we print out the menu a different way
-					card.innerHTML += `<h2> ${course.name[language]} - ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} - ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+					card.innerHTML += `<h2>${course.name[language]} - ${course.sizeHalf[language]} ${course.priceHalf[language]} ${course.currency[language]} - ${course.sizeWhole[language]} ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
 				} else {
-					//the normal way, [language] is an dynamic key to access object property (it gets the value associated with the key "sv" or "en" via variable language)
-					card.innerHTML += `<h2> ${course.name[language]} - ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
+					card.innerHTML += `<h2>${course.name[language]} - ${course.price[language]} ${course.currency[language]}</h2><p>${course.about[language]}</p>`;
 				}
-
 				output.appendChild(card);
 			});
-		} //end of showCourses function
+		} //end of main function (showCourses)
 
-		showCourses(language, courses); //call showCourses initially to display all courses
+		//call main fucntion initially to display all courses
+		showCourses(language, courses);
 
+		//If vegeterian is checked, uncheck all the others
 		meatVegetarianCheck.addEventListener("change", function () {
 			if (this.checked) {
 				meatChickenCheck.checked = false;
@@ -196,6 +203,7 @@ async function fetchCourses() {
 			showCourses(language, courses);
 		});
 
+		//Uncheck vegetarian box if any of the meat types is checked
 		const realMeatTypeCheck = [
 			meatChickenCheck,
 			meatPorkCheck,
@@ -212,19 +220,21 @@ async function fetchCourses() {
 			});
 		});
 
+		//Just updates/displays main function when allergies are clicked
 		const allergiesTypeFilter = document.querySelector("#allergiesTypeFilter");
 		allergiesTypeFilter.onclick = function () {
 			showCourses(language, courses);
 		};
 
+		//uncheck priceDescending when priceAscending is checked
 		priceAscendingCheck.addEventListener("change", function () {
-			//"this" refers to the priceAscendingCheck checkbox element.
 			if (this.checked) {
 				priceDescendingCheck.checked = false;
 			}
 			showCourses(language, courses);
 		});
 
+		//Uncheck priceAscending when priceDescending is checked
 		priceDescendingCheck.addEventListener("change", function () {
 			if (this.checked) {
 				priceAscendingCheck.checked = false;
@@ -236,4 +246,4 @@ async function fetchCourses() {
 		console.error("Error:", error);
 	}
 }
-fetchCourses();
+fetchCourses(); //calls the whole async function (everything)
